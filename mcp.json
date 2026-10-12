@@ -1,0 +1,1 @@
+{"$schema":"https://agent-plugins.org/schemas/1.0.0/mcp.schema.json","mcpServers":{"mailbridge":{"type":"streamable-http","url":"https://icloud-mail-bridge-chatgpt.evangrant69420.workers.dev/mcp"}}}

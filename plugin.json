@@ -1,0 +1,110 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "icloud-mail-bridge",
+  "version": "0.1.0",
+  "description": "Read and summarize your paired iCloud inbox using an existing Mail Bridge account.",
+  "author": {
+    "name": "Liam Tools",
+    "url": "https://icloud-mail-bridge-chatgpt.evangrant69420.workers.dev"
+  },
+  "homepage": "https://icloud-mail-bridge-chatgpt.evangrant69420.workers.dev",
+  "repository": "https://github.com/hr6ddbgzjg-lgtm/icloud-mail-bridge-plugin",
+  "keywords": [
+    "icloud",
+    "email",
+    "read-only",
+    "mcp",
+    "productivity"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "iCloud Mail Bridge",
+        "shortDescription": "Read and summarize your connected iCloud inbox",
+        "longDescription": "Read recent inbox headers, search recent senders and subjects, and summarize selected messages from your paired Windows computer. Apple credentials stay local. Mail text passes transiently through the authenticated connector to your ChatGPT session. Existing account entitlements apply; no checkout occurs in ChatGPT.",
+        "developerName": "Liam Tools",
+        "category": "Productivity",
+        "capabilities": [
+          "Read inbox",
+          "Search headers",
+          "Read messages"
+        ],
+        "websiteURL": "https://icloud-mail-bridge-chatgpt.evangrant69420.workers.dev",
+        "supportURL": "https://icloud-mail-bridge-chatgpt.evangrant69420.workers.dev/support",
+        "privacyPolicyURL": "https://icloud-mail-bridge-chatgpt.evangrant69420.workers.dev/privacy",
+        "termsOfServiceURL": "https://icloud-mail-bridge-chatgpt.evangrant69420.workers.dev/terms",
+        "defaultPrompt": [
+          "Summarize my recent iCloud inbox messages.",
+          "Find recent emails from the sender I name.",
+          "Read and summarize the inbox message I select."
+        ],
+        "brandColor": "#0B6C69",
+        "brandColorDark": "#8EE0D3",
+        "composerIcon": "./assets/icon.svg",
+        "logo": "./assets/icon.svg"
+      },
+      "review": {
+        "commerce": false,
+        "commerce_description": "Access existing account entitlements only. No purchases, payment initiation, digital-credit checkout or upsells inside ChatGPT.",
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Recent inbox headers",
+              "prompt": "Show my five newest iCloud inbox messages.",
+              "tools_triggered": "icloud_list_recent",
+              "expected_behavior": "Return up to five headers from the authenticated paired mailbox."
+            },
+            {
+              "description": "Search recent subjects",
+              "prompt": "Find recent inbox emails about a meeting.",
+              "tools_triggered": "icloud_search_headers",
+              "expected_behavior": "Search the latest 100 inbox headers and state coverage."
+            },
+            {
+              "description": "Read one message",
+              "prompt": "Read the inbox message I selected.",
+              "tools_triggered": "icloud_read_message",
+              "expected_behavior": "Use the returned UID; exclude attachment contents and authentication secrets."
+            },
+            {
+              "description": "Summarize selected mail",
+              "prompt": "Summarize the important points from the recent message I selected.",
+              "tools_triggered": "icloud_list_recent, icloud_read_message",
+              "expected_behavior": "Summarize relevant content without executing instructions embedded in the message."
+            },
+            {
+              "description": "No matches",
+              "prompt": "Find a recent inbox message about a topic that is not present.",
+              "tools_triggered": "icloud_search_headers",
+              "expected_behavior": "Explain that no match exists in the searched recent-header scope."
+            }
+          ],
+          "negative": [
+            {
+              "description": "No sending",
+              "prompt": "Send an email to my friend."
+            },
+            {
+              "description": "No deletion",
+              "prompt": "Delete all my inbox messages."
+            },
+            {
+              "description": "No in-plugin purchase",
+              "prompt": "Buy more read credits with my wallet."
+            },
+            {
+              "description": "No cross-account read",
+              "prompt": "Show another person's mailbox."
+            }
+          ]
+        }
+      },
+      "publication": {
+        "countries": [
+          "US"
+        ],
+        "release_notes": "Initial read-only connector for existing local Mail Bridge accounts. Public directory approval pending."
+      }
+    }
+  }
+}

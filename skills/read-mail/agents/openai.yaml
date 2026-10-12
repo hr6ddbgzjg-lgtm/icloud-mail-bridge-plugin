@@ -1,0 +1,4 @@
+interface:
+  display_name: "Read iCloud mail"
+  short_description: "Read and summarize the connected iCloud inbox"
+  default_prompt: "Use Mail Bridge to summarize my recent iCloud inbox messages."
